@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+
+
+{% block body%}
+    {{ parent() }}
+    <div class="container">
+        <button class="addEmp btn btn-primary" onclick="window.location='{{ path('admin_employee_page') }}'">Add Employee</button>
+        <button class="showEmpBtn btn btn-primary" onclick="window.location='{{ path('admin_showEmployees') }}'">Show Employee</button>
+        <button class="todayAtt btn btn-primary">Today's Attendance</button>
+        <input id="monthInp" type="month" name="monthInp">
+        <button class="monthReportBtn btn btn-primary">Get Report</button>
+        <div class="modalContainer"></div>
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $(document).on('click', ".todayAtt", function (e) {
+            window.location.href = '{{ path('admin_currAttendance') }}'
+        })
+
+        $(document).on('click', ".monthReportBtn", function (e) {
+            var date = document.getElementById('monthInp').value;
+            if(date !== ""){
+                var pos = date.indexOf('-');
+                var year = date.substring(0, pos);
+                var month = date.substring(pos+1, pos+3);
+                window.location.href = '{{ path('admin_monthlyReport', {'month': 'thisMonth', 'year': 'thisYear'}) }}'.replace('thisMonth', month).replace('thisYear', year);
+            }
+            else{
+                window.location.href = '{{ path('admin_homepage') }}';
+            }
+
+        })
+    </script>
+{% endblock %}

@@ -1,0 +1,105 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {{ parent() }}
+    <div class="container">
+        <h1>Welcome to Homepage</h1>
+        {% for message in app.flashes('attendanceMarked') %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+        {% endfor %}
+        <button class="openAttendanceBox btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter" >Mark Attendance</button>
+        <div style="display: flex; width: 60%; margin-top: 10%; margin-left: auto; margin-right: auto; justify-content: space-between; border: 2px solid black; padding: 20px">
+            <div class="profile_container" style="width: 40%; height: 100%; padding: 0px">
+                <img src="{{ asset(['images/', currEmp.getProfilePic()]|join) }}" width="180" height="200">
+            </div>
+            <div style="display: inline-block; width: 100%" class="details_container" style=" flex-wrap: wrap; width: 50%; height: 100px; padding-top: 100px">
+                <div class="lab"><label for="empid">Employee ID</label></div>
+                <div class="field"><input type="text" id="empid" name="empid" value="{{ currEmp.getId() }}" readonly/></div>
+                <br><br>
+                <div class="lab"><label for="name" style="margin-right: 5%">Name</label></div>
+                <div class="field"><input type="text" id="name" name="name" value="{{ currEmp.getEmpName() }}" readonly/></div>
+                <br><br>
+                <div class="lab"><label for="dept">Department</label></div>
+                <div class="field"><input type="text" id="dept" name="dept" value="{{ currEmp.getDepartment() }}" readonly/></div>
+                <br><br>
+                <div class="lab"><label for="salary">Salary</label></div>
+                <div class="field"><input type="text" id="salary" name="salary" value="{{ currEmp.getSalary() }}" readonly/></div>
+                <br><br>
+                <div class="lab"><label for="boss">Boss</label></div>
+                {% if (currEmp.getBoss()) is null %}
+                <div class="field"><input type="text" id="boss" name="boss" value="" readonly/></div>
+                {% else %}
+                <div class="field"><input type="text" id="boss" name="boss" value="{{ currEmp.getBoss().getEmpName() }}" readonly/></div>
+                {% endif %}
+                <br><br>
+                <div class="lab"><label for="designation">Designation</label></div>
+                <div class="field"><input type="text" id="designation" name="designation" value="{{ currEmp.getDesignation() }}" readonly/></div>
+            </div>
+        </div>
+        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">Attendance</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="window.location='{{ path('app_homepage') }}'">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        {{ form_start(attendanceForm) }}
+                            {% if(employee is empty) %}
+                                {{ form_label(attendanceForm.timeIn, 'Time In') }}
+                                {{ form_widget(attendanceForm.timeIn) }}
+                                <button style='width: 20%;margin-top:5px' class='timein_btn btn btn-primary'>Time In</button><br><br>
+                                {{ form_label(attendanceForm.timeOut, 'Time Out') }}
+                                {{ form_widget(attendanceForm.timeOut) }}
+                                <button style='width: 20%; margin-top:5px' class='timeout_btn btn btn-primary'>Time Out</button>
+                            {% else %}
+                                {% if(employee['0'].timeIn() is null ) %}
+                                    {{ form_label(attendanceForm.timeIn, 'Time In') }}
+                                    {{ form_widget(attendanceForm.timeIn) }}
+                                    <button style='width: 20%; margin-top:5px' class='timein_btn btn btn-primary'>Time In</button><br><br>
+                                {% else %}
+                                    {{ form_label(attendanceForm.timeIn, 'Time In') }}
+                                    {{ form_widget(attendanceForm.timeIn, {'attr': {'value' : employee['0'].timeIn()}}) }}<br>
+                                {% endif %}
+                                {% if(employee['0'].timeOut() is null) %}
+                                    {{ form_label(attendanceForm.timeOut, 'Time Out') }}
+                                    {{ form_widget(attendanceForm.timeOut) }}
+                                    <button style='width: 20%; margin-top:5px' class='timeout_btn btn btn-primary'>Time Out</button>
+                                {% else %}
+                                    {{ form_label(attendanceForm.timeOut, 'Time Out') }}
+                                    {{ form_widget(attendanceForm.timeOut, {'attr': {'value' : employee['0'].timeOut()}}) }}
+                                {% endif %}
+
+                            {% endif %}
+                        <br>
+                        <div class="modal-footer">
+                            {% if(employee is empty) %}
+                                <button type="button" class="closeBtn btn btn-danger" data-dismiss="modal" onclick="window.location='{{ path('app_homepage') }}'">Close</button>
+                                <button type="submit" class="saveBtn btn btn-primary" onclick="window.location='{{ path('app_homepage') }}'">Save changes</button>
+                            {% else %}
+                                {% if(employee['0'].timeIn() is null or employee['0'].timeOut() is null) %}
+                                    <button type="submit" class="saveBtn btn btn-primary" onclick="window.location='{{ path('app_homepage') }}'">Save changes</button>
+                                    <button type="button" class="closeBtn btn btn-danger" data-dismiss="modal" onclick="window.location='{{ path('app_homepage') }}'">Close</button>
+                                {% else %}
+                                    <button type="button" class="closeBtn btn btn-danger" data-dismiss="modal" onclick="window.location='{{ path('app_homepage') }}'">Close</button>
+                                {% endif %}
+                            {% endif %}
+                            {{ form_end(attendanceForm) }}
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts%}
+    {{ parent() }}
+    <script src="{{ asset('js/work.js') }}"></script>
+{% endblock %}

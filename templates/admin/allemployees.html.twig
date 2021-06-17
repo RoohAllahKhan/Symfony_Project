@@ -1,0 +1,74 @@
+{% extends 'base.html.twig' %}
+
+
+{% block body %}
+    {{ parent() }}
+    <div class="container" style="margin-top: 5%">
+        <h1 style="text-align: center">Employees Family</h1>
+        {% for message in app.flashes('empUpdated') %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+        {% endfor %}
+        <table id="empTable" class="display">
+            <thead>
+            <tr>
+                <td>Employee ID</td>
+                <td>Name</td>
+                <td>Department</td>
+                <td>Designation</td>
+                <td>Action</td>
+            </tr>
+            </thead>
+            <tbody>
+            {% for emp in employees %}
+                <tr><td>{{ emp.getId() }}</td>
+                    <td>{{ emp.getEmpName() }}</td>
+                    <td>{{ emp.getDepartment() }}</td>
+                    <td>{{ emp.getDesignation() }}</td>
+                    <td><div style='display: flex; justify-content: space-evenly'>
+                            <button style='width: 40%; box-shadow: black' class='emp_edit btn btn-primary'>Edit</button>
+                            <button style='width: 45%' class='emp_del btn btn-danger'>Delete</button>
+                        </div>
+                    </td>
+            {% endfor %}
+            </tbody>
+            <tfoot>
+            <tr>
+                <td>Employee ID</td>
+                <td>Name</td>
+                <td>Department</td>
+                <td>Designation</td>
+                <td>Action</td>
+            </tr>
+            </tfoot>
+        </table>
+    </div>
+{#    onclick="window.location='{{ path('admin_edit_employee') }}'"#}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('js/work.js') }}"></script>
+    <script>
+        $(document).on("click", '.emp_edit', function (e) {
+            var empID = empTbl.cell($(this).parents('tr'),0).data();
+            window.location = '{{ path('admin_edit_employee', {'empId': 'employee'}) }}'.replace('employee', empID);
+        });
+
+
+        $(document).on('click', '.emp_del', function (e) {
+            // e.preventDefault();
+            var del_confirmation = confirm("Are you sure? Do you really want to delete the Employee?");
+            if(del_confirmation){
+                var empID = empTbl.cell($(this).parents('tr'),0).data();
+{#                {{ dump(empID) }}#}
+                empTbl.row($(this).parents('tr')).remove().draw();
+{#                {{ dump(path('admin_delEmp')) }}#}
+                window.location.href = '{{ path('admin_delEmp', {'empId':'id'}) }}'.replace('id', empID);
+            }
+
+        });
+
+    </script>
+{% endblock %}

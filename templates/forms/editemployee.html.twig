@@ -1,0 +1,64 @@
+{% extends 'base.html.twig' %}
+{% block body%}
+    {{ parent() }}
+    <div class="container">
+        <button class="empModal btn btn-primary">Edit Employee</button>
+        <div id='myModal' class='modal' style='display: block'>
+               <div class='modal-content' style='width:70%; margin-top:5%'>
+                   <span class='close' style='text-align:right'>&times;</span>
+                   <p>
+                   <div class='empMain'>
+{#                   {{ dump(['images/', employee.getEmployee().getProfilePic()]|join) }}#}
+                   <div style='margin-left:5%;float: left; height: 100%; display: inline-block'>
+                   <img id= 'empProfile' height=385  alt='hp' width='300' src="{{ asset(['images/', employee.getEmployee().getProfilePic()]|join) }}">
+                   </div>
+                   <div class='inside' style='clear: top; height: 100%; width: 60%; display: inline-block; text-align: center; align-items: center;'>
+                       <div style='text-align: right'>
+{#                           <p class='id' style='display: none'></p>#}
+                           Name&emsp;<input style='height:40px; width:70%' type='text' class='empName' value="{{ employee.getEmployee().getEmpName() }}" ><br><br>
+                           Department&emsp;<input style='height:40px; width:70%' type= 'text' class='department' value="{{ employee.getEmployee().getDepartment() }}" ><br><br>
+                           Salary&emsp;<input style='height:40px; width:70%' type='text' class='salary' value="{{ employee.getEmployee().getSalary() }}" ><br><br>
+                           Designation&emsp;
+                           <select name='designation' id='designation' style='width: 71%; height: 40px'>
+                               <option>Developer</option>
+                               <option>Manager</option>
+                               <option>HR Manager</option>
+                               <option>CEO</option>
+                           </select><br><br>
+                           Boss&emsp;<select name='boss' id='boss' style='width: 71%; height: 40px' value="{{ employee.getEmployee().getBoss() }}"></select><br><br>
+                           Email&emsp;<input style='height:40px; width:70%' type='text' class='email' value="{{ employee.getEmail() }}"><br><br>
+                           Password&emsp;<input style='height:40px; width:70%' type='text' class='passwd'><br><br>
+                           Profile Image&emsp;<input type='file' name='pf_pic' id='file' required><br></div>
+                       <div class='btn_container' style='height:30%;padding: 30px; clear: both;'>
+                           <table class='buttons' style='float:right;table-layout: fixed; width: 70%'>
+                               <tr>
+                                   <td style='height: 30px;'>
+                                       <button type='submit' style=' border-radius:50px; height: 40px; width: 80%; font-size: 20px' class='save_btn btn btn-primary' onclick='saveFunc()'>Save</button>
+                                   </td>
+                                   <td style='height: 30px;'>
+                                       <button style='border-radius:50px; height: 40px; width: 80%;font-size: 20px' class='cancel_btn btn btn-danger'>Cancel</button>
+                                   </td>
+                               </tr>
+                           </table>
+                       </div>
+                   </div>
+               </div>
+{#        <div class="modalContainer"></div>#}
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+{#    <script src="{{ asset('js/work.js') }}"></script>#}
+    <script>
+        $(document).on("click", ".close", function(e) {
+                   window.location.href = {{ path('admin_homepage') }};
+        })
+        $(document).on("click", ".cancel_btn", function(e) {
+                   window.location.href = {{ path('admin_homepage') }};
+        })
+    </script>
+
+{% endblock %}

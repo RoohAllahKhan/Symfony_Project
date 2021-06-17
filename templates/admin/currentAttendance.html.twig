@@ -1,0 +1,46 @@
+{% extends 'admin/adminpanel.html.twig' %}
+
+
+{% block body %}
+    {{ parent() }}
+    <div class="container" style="margin-top: 5%">
+        <table id="currAttTable" class="display">
+            <thead>
+            <tr>
+                <td>Employee ID</td>
+                <td>Name</td>
+                <td>Date</td>
+                <td>Time In</td>
+                <td>Time Out</td>
+                <td>Status</td>
+            </tr>
+            </thead>
+            <tbody>
+            {% for attRecords in currAttendance %}
+            <tr><td>{{ attRecords.getEmployeeId().getId() }}</td>
+                <td>{{ attRecords.getEmployeeId().getEmpName() }}</td>
+                <td>{{ attRecords.getDate() }}</td>
+                <td>{{ attRecords.getTimeIn() }}</td>
+                <td>{{ attRecords.getTimeOut() }}</td>
+                <td>{{ attRecords.getStatus() }}</td>
+            {% endfor %}
+            </tbody>
+            <tfoot>
+            <tr>
+                <td>Employee ID</td>
+                <td>Name</td>
+                <td>Date</td>
+                <td>Time In</td>
+                <td>Time Out</td>
+                <td>Status</td>
+            </tr>
+            </tfoot>
+        </table>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('js/work.js') }}"></script>
+
+{% endblock %}
