@@ -65,17 +65,14 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
 
     public function getUser($credentials, UserProviderInterface $userProvider)
     {
-        //dd($credentials['']);
         $token = new CsrfToken('authenticate', $credentials['csrf_token']);
         if (!$this->csrfTokenManager->isTokenValid($token)) {
             throw new InvalidCsrfTokenException();
         }
 
         $user = $this->entityManager->getRepository(User::class)->findOneBy(['email' => $credentials['email']]);
-        //dd($user);
         if (!$user) {
             throw new UsernameNotFoundException('Email could not be found.');
-//            throw new UsernameNotFoundException();
         }
 
         return $user;
@@ -83,7 +80,6 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
 
     public function checkCredentials($credentials, UserInterface $user)
     {
-//        dd($user->getEmployee()->getEmpName());
         return $this->passwordEncoder->isPasswordValid($user, $credentials['password']);
     }
 
@@ -102,8 +98,6 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
             return new RedirectResponse($targetPath);
         }
           return new RedirectResponse($this->router->generate('app_homepage'));
-//        // For example : return new RedirectResponse($this->urlGenerator->generate('some_route'));
-//        throw new \Exception(
     }
 
     protected function getLoginUrl()

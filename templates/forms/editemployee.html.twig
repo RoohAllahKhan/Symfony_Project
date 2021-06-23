@@ -8,13 +8,11 @@
                    <span class='close' style='text-align:right'>&times;</span>
                    <p>
                    <div class='empMain'>
-{#                   {{ dump(['images/', employee.getEmployee().getProfilePic()]|join) }}#}
                    <div style='margin-left:5%;float: left; height: 100%; display: inline-block'>
                    <img id= 'empProfile' height=385  alt='hp' width='300' src="{{ asset(['images/', employee.getEmployee().getProfilePic()]|join) }}">
                    </div>
                    <div class='inside' style='clear: top; height: 100%; width: 60%; display: inline-block; text-align: center; align-items: center;'>
                        <div style='text-align: right'>
-{#                           <p class='id' style='display: none'></p>#}
                            Name&emsp;<input style='height:40px; width:70%' type='text' class='empName' value="{{ employee.getEmployee().getEmpName() }}" ><br><br>
                            Department&emsp;<input style='height:40px; width:70%' type= 'text' class='department' value="{{ employee.getEmployee().getDepartment() }}" ><br><br>
                            Salary&emsp;<input style='height:40px; width:70%' type='text' class='salary' value="{{ employee.getEmployee().getSalary() }}" ><br><br>
@@ -43,7 +41,6 @@
                        </div>
                    </div>
                </div>
-{#        <div class="modalContainer"></div>#}
         </div>
     </div>
 
@@ -51,7 +48,6 @@
 
 {% block javascripts %}
     {{ parent() }}
-{#    <script src="{{ asset('js/work.js') }}"></script>#}
     <script>
         $(document).on("click", ".close", function(e) {
                    window.location.href = {{ path('admin_homepage') }};

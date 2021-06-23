@@ -31,7 +31,6 @@ class EmployeeService extends AbstractController
 
     public function delete_Employee($empId)
     {
-//        $employee = $this->entityManager->getRepository(Employees::class)->find($empId);
         $this->entityManager->getRepository(Employees::class)->delEmployee($empId);
 
     }
@@ -46,9 +45,6 @@ class EmployeeService extends AbstractController
     }
     public function setEmpUpdation($priorData, $newData, $passwordEncoder)
     {
-//        $newData->getEmployees()['0']->get
-//dd($newData);
-//        dd($priorData->getEmployee()->getId());
         $employeeId = $priorData->getEmployee()->getId();
         $empName = $newData->getData()->getEmployees()['0']->getEmpName();
         $department = $newData->getData()->getEmployees()['0']->getDepartment();
@@ -88,24 +84,10 @@ class EmployeeService extends AbstractController
             $password = $newData->getData()->getPassword();
         }
         $this->er->updateEmployee($employeeId, $empName, $department, $salary, $profile, $designation, $boss, $email, $password, $passwordEncoder);
-//        $this->userRepository
-
-
-//        dd($profile);
-//        dump($empName);
-//        dump($department);
-//        dump($designation);
-//        dump($salary);
-//        dump($boss);
-//        dump($profile);
-//        dump($email);
-//        dump($password);
-//        die;
-
     }
+
     public function setEmployee($form, UserPasswordEncoder $passwordEncoder){
-//        dd($form['profile']->getData());
-//        dd($form->get('profile')->getData());
+
         $empName = $form->getData()->getEmployees()['0']->getEmpName();
         $department = $form->getData()->getEmployees()['0']->getDepartment();
         $salary = $form->getData()->getEmployees()['0']->getSalary();

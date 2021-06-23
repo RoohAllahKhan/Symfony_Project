@@ -2,22 +2,9 @@
 
 {% block content_body %}
 
-{#    <h1>Hello to Employee Form</h1><br><br>#}
-{#    {{ form_start(empForm) }}#}
-{#        {{ form_widget(empForm) }}#}
-{#        <button type="submit" class="btn btn-primary">Add Employee</button>#}
-{#    {{ form_end(empForm) }}#}
 
 
 
-
-
-
-
-
-
-    {#    Employees#}
-{#    <div class="employees">#}
     {{ form_start(form) }}
         {% for employees in form.employees %}
             {{ form_row(employees.empName) }}
@@ -25,7 +12,6 @@
             {{ form_row(employees.salary) }}
             {{ form_row(employees.designation) }}
             {{ form_row(employees.boss)}}
-{#            {{ form_row(employees.profile_pic)}}#}
         {% endfor %}
     {{ form_row(form.profile) }}
     {{ form_row(form.email) }}
@@ -34,10 +20,6 @@
     <button type="submit" class="btn btn-primary">Add Employee</button>
     <button class="btn btn-warning" onclick="history.back()">Back</button>
 
-
-    {#    user#}
-    {#    {{ form_start(form) }}#}
-    {#    </div>#}
     {{ form_end(form) }}
 
 

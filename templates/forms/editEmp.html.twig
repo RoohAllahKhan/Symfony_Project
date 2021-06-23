@@ -8,19 +8,13 @@
                    <span class='close' style='text-align:right'>&times;</span>
                    <p>
                    <div class='empMain' style="display: flex; justify-content: space-evenly">
-{#                   {{ dump(['images/', employee.getEmployee().getProfilePic()]|join) }}#}
                    <div style='margin-left:5%;float: left; height: 100%; display: inline-block'>
                    <img id= 'empProfile' height=385  alt='hp' width='300' src="{{ asset(['images/', employee.getEmployee().getProfilePic()]|join) }}">
                    </div>
                    <div class='inside' style='clear: top; height: 100%; width: 60%; display: inline-block; text-align: center; align-items: center;'>
                        {{ form_start(editForm) }}
                        <div style='text-align: left'>
-{#                           <p class='id' style='display: none'></p>#}
-{#                            {{ dump(employee.getEmployee().getDesignation().getId()) }}#}
                              {% for employees in editForm.employees %}
-
-
-{#                                  {{ form_label(employees.empName, 'Name') }}#}
                                   {{ form_row(employees.empName, {'label': 'Name', 'attr': {'value' : employee.getEmployee().getEmpName()} }) }}
                                   {{ form_row(employees.department, {'label': 'Department', 'attr': {'value' : employee.getEmployee().getDepartment()} }) }}
                                   {{ form_row(employees.salary, {'label': 'Salary', 'attr': {'value' : employee.getEmployee().getSalary()} }) }}
@@ -32,7 +26,6 @@
 
                                   {% endif %}
                              {% endfor %}
-{#                             {{ dump(employee.getEmployee().getProfilePic()) }}#}
 
                                 {{ form_row(editForm.profile, {'label': 'Profile', 'attr': {'class': 'abc'}} ) }}
                                 {{ form_row(editForm.email, {'label': 'Email','attr': {'value' : employee.getEmail()} }) }}

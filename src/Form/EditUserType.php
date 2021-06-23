@@ -36,12 +36,6 @@ class EditUserType extends AbstractType
                 'label'=>false,
                 'required' => false,
                 'mapped'=>false,
-//                'constraints' => array(
-//                    new NotBlank(['groups'=>['registration']]),
-//                ),
-//            'empty_data' => "",
-//            'invalid_message' => 'You have done something wrong in inspect element'
-
             ));
 
         //Adding Employee(tag) to user(tasks)

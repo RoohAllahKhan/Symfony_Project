@@ -14,7 +14,6 @@ use Symfony\Component\Validator\Constraints\NotBlank;
 use function Sodium\add;
 
 
-//\b([0-9]|0[0-9]|1[0-9]|2[0-3])\b:\b([0-9]|0[0-9]|1[0-9]|2[0-9]|3[0-9]|4[0-9]|5[0-9])\b
 class AttendanceType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)

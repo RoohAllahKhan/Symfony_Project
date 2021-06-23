@@ -69,7 +69,6 @@ class AttendanceRepository extends ServiceEntityRepository
             ->setParameter('l_status', 'L')
             ->setParameter('a_status', '^')
             ->setParameter('pattern', '%/'.$month.'/'.$year);
-//        dd($query->getQuery()->getResult()['0']);
         return $query->getQuery()->getResult();
     }
     public function todaysAttendace($date)
@@ -99,7 +98,6 @@ class AttendanceRepository extends ServiceEntityRepository
     {
 
         $records = $this->checkAttendance($employee, $date);
-//        $conn = $this->getEntityManager()->getConnection();
         if($records['0']->getTimeIn() == null)
         {
             $records['0']->setTimeIn($time);

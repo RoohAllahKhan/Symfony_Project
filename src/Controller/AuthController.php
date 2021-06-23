@@ -26,7 +26,6 @@ class AuthController extends BaseController
      */
     public function homepage(Request $request, MarkAttendanceService $attendanceService, MarkAttendanceService $markAttendance)
     {
-//        dd($this->getUser()->getEmployee()->getEmpName());
         $attendanceForm = $this->createForm(AttendanceType::class);
         $currentEmp = $this->getUser()->getEmployee();
         $em = $this->getDoctrine()->getManager();
@@ -61,9 +60,6 @@ class AuthController extends BaseController
      */
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
-        // if ($this->getUser()) {
-        //     return $this->redirectToRoute('target_path');
-        // }
 
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();

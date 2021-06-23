@@ -44,7 +44,6 @@
             </tfoot>
         </table>
     </div>
-{#    onclick="window.location='{{ path('admin_edit_employee') }}'"#}
 {% endblock %}
 
 {% block javascripts %}
@@ -58,13 +57,10 @@
 
 
         $(document).on('click', '.emp_del', function (e) {
-            // e.preventDefault();
             var del_confirmation = confirm("Are you sure? Do you really want to delete the Employee?");
             if(del_confirmation){
                 var empID = empTbl.cell($(this).parents('tr'),0).data();
-{#                {{ dump(empID) }}#}
                 empTbl.row($(this).parents('tr')).remove().draw();
-{#                {{ dump(path('admin_delEmp')) }}#}
                 window.location.href = '{{ path('admin_delEmp', {'empId':'id'}) }}'.replace('id', empID);
             }
 

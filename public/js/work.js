@@ -36,10 +36,7 @@ $(document).on('click', ".saveBtn", function (event) {
 
     var time_in = $("#attendance_timeIn").val();
     var time_out = $("#attendance_timeOut").val();
-    // if(time_in !== "")
-    // {
-    //     $(".timein_btn").hide();
-    // }
+
     if(time_in === "" && time_out === "")
     {
         alert("Kindly Mark your attendance in order to save");
